@@ -28,11 +28,13 @@ jobs:
         push: true
         tags: ${{ env.GKE_ZONE }}-docker.pkg.dev/${{ env.PROJECT_ID }}/pmc-server/pmc-server-prod:latest
     
-    - name: GCloud Auth
-      uses: GoogleCloudPlatform/github-actions/setup-gcloud@v1
+    - id: 'Auth'
+      uses: 'google-github-actions/auth@v1'
       with:
-        project_id: ${{ env.PROJECT_ID }}
-        service_account_key: ${{ secrets.GCLOUD_AUTH }}
+        credentials_json: '${{ secrets.GCLOUD_AUTH }}'
+
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
 
     - name: Configure kubectl
       run: |
