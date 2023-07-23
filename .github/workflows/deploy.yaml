@@ -20,6 +20,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       
+    - name: Create .config folder
+      run: mkdir ~/.config/
+      
     - name: create-firebase-secret-json
       id: create-json-1
       uses: jsdaniell/create-json@v1.2.2
