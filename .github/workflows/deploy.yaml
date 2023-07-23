@@ -42,10 +42,18 @@ jobs:
     - id: 'Auth'
       uses: 'google-github-actions/auth@v1'
       with:
+        token_format: 'access_token'
         credentials_json: '${{ secrets.GCLOUD_AUTH }}'
     
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v1'
+      
+    - name: Login to GAR
+      uses: docker/login-action@v2
+      with:
+        registry: ${{ env.GKE_ZONE }}-docker.pkg.dev
+        username: oauth2accesstoken
+        password: ${{ steps.auth.outputs.access_token }}
 
     - name: Build
       uses: docker/build-push-action@v4
