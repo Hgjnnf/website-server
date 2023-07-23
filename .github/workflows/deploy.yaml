@@ -20,9 +20,21 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       
-    - name: 'Create secret files'
-      run: |
-        mkdir -p ~/.config/
+    - name: create-firebase-secret-json
+      id: create-json-1
+      uses: jsdaniell/create-json@v1.2.2
+      with:
+        name: "firebase_secret_key.json"
+        json: ${{ secrets.FIREBASE_AUTH }}
+        dir: '.config/'
+        
+    - name: create-master-secret-json
+      id: create-json-2 
+      uses: jsdaniell/create-json@v1.2.2
+      with:
+        name: "pmc-server_master_key.json"
+        json: ${{ secrets.GCLOUD_AUTH }}
+        dir: '.config/'
 
     - name: Build
       uses: docker/build-push-action@v4
