@@ -76,9 +76,9 @@ jobs:
         gcloud config set compute/region ${{ env.GKE_ZONE }}
         gcloud container clusters get-credentials ${{ env.GKE_CLUSTER }}
 
-    - name: Deploy
+    - name: Apply Config and Deploy
       run: |
         kubectl apply -f deployment.yaml
         kubectl apply -f service.yaml
-				kubectl rollout restart deployment.apps/pmc-server-prod
+        kubectl rollout restart deployment.apps/pmc-server-prod
     
