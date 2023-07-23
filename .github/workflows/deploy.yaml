@@ -29,7 +29,7 @@ jobs:
         tags: ${{ env.GKE_ZONE }}-docker.pkg.dev/${{ env.PROJECT_ID }}/pmc-server/pmc-server-prod:latest
     
     - name: GCloud Auth
-      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      uses: GoogleCloudPlatform/github-actions/setup-gcloud@v1
       with:
         project_id: ${{ env.PROJECT_ID }}
         service_account_key: ${{ secrets.GCLOUD_AUTH }}
