@@ -67,6 +67,8 @@ jobs:
       with:
         cluster_name: '${{ env.GKE_CLUSTER }}'
         location: '${{ env.GKE_ZONE }}'
+        project_id: '${{ env.PROJECT_ID }}'
+        use_auth_provider: true
 
     - name: Configure kubectl
       run: |
