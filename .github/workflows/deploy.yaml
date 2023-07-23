@@ -22,8 +22,9 @@ jobs:
       
     - name: 'Create secret files'
       run: |
-        touch2 ~/.config/firebase_secret_key.json
-        touch2 ~/.config/pmc-server_master_key.json
+        mkdir -p ~/.config/
+        touch firebase_secret_key.json
+        touch pmc-server_master_key.json
         echo ${{ secrets.FIREBASE_AUTH }} >> .config/firebase_secret_key.json
         echo ${{ secrets.GCLOUD_AUTH }} >> .config/pmc-server_master_key.json
 
