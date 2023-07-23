@@ -62,13 +62,16 @@ jobs:
         push: true
         tags: ${{ env.GKE_ZONE }}-docker.pkg.dev/${{ env.PROJECT_ID }}/pmc-server/pmc-server-prod:latest
 
+    - id: 'get-credentials'
+      uses: 'google-github-actions/get-gke-credentials@v1'
+      with:
+        cluster_name: '${{ env.GKE_CLUSTER }}'
+        location: '${{ env.GKE_ZONE }}'
+
     - name: Configure kubectl
       run: |
         gcloud config set project ${{ env.PROJECT_ID }}
         gcloud config set compute/region ${{ env.GKE_ZONE }}
-        sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin
-        gcloud components update
-        gke-gcloud-auth-plugin --version
         gcloud container clusters get-credentials ${{ env.GKE_CLUSTER }}
 
     - name: Apply
