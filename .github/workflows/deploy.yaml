@@ -38,6 +38,14 @@ jobs:
         name: "pmc-server_master_key.json"
         json: ${{ secrets.GCLOUD_AUTH }}
         dir: '.config/'
+        
+    - id: 'Auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GCLOUD_AUTH }}'
+    
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
 
     - name: Build
       uses: docker/build-push-action@v4
@@ -46,14 +54,6 @@ jobs:
         file: ./Dockerfile.prod
         push: true
         tags: ${{ env.GKE_ZONE }}-docker.pkg.dev/${{ env.PROJECT_ID }}/pmc-server/pmc-server-prod:latest
-    
-    - id: 'Auth'
-      uses: 'google-github-actions/auth@v1'
-      with:
-        credentials_json: '${{ secrets.GCLOUD_AUTH }}'
-
-    - name: 'Set up Cloud SDK'
-      uses: 'google-github-actions/setup-gcloud@v1'
 
     - name: Configure kubectl
       run: |
